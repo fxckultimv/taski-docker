@@ -1,31 +1,31 @@
 version: '3'
 
 volumes:
-  pg_data:
-  static:
+  pg_data_taski:
+  static_taski:
 
 services:
   db:
     image: postgres:13
     env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data_taski:/var/lib/postgresql/data
   backend:
     build: ./backend/
     env_file: .env
     volumes:
-      - static:/backend_static
+      - static_taski:/backend_static
 
   frontend:
     build: ./frontend/
     command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static:/frontend_static
+      - static_taski:/frontend_static
 
   gateway:
     image: nginx:1.22.1
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
-      - static:/staticfiles
+      - static_taski:/staticfiles
     ports:
       - 8000:80
