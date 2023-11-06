@@ -2,4 +2,4 @@
 
 Проект для отслеживания прогресса выполненных задач.
 
-Технологии: DockerHub, Python, PostgreSQL 
+Технологии: DockerHub, Python, PostgreSQL, GitBash
