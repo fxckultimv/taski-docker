@@ -13,7 +13,7 @@ services:
     volumes:
       - pg_data_production:/var/lib/postgresql/data
   backend:
-    image: we5h/taski_backend
+    image: veuxveuxveux/taski_backend
     env_file: .env
     volumes:
       - static_volume:/backend_static
