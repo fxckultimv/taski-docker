@@ -1,31 +1,33 @@
+# docker-compose.yml
 version: '3'
 
 volumes:
-  pg_data_taski:
-  static_taski:
+  pg_data:
+  static:
 
 services:
   db:
     image: postgres:13
     env_file: .env
     volumes:
-      - pg_data_taski:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
   backend:
     build: ./backend/
     env_file: .env
     volumes:
-      - static_taski:/backend_static
+      - static:/backend_static
 
   frontend:
+    env_file: .env
     build: ./frontend/
     command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static_taski:/frontend_static
+      - static:/frontend_static
 
   gateway:
-    image: nginx:1.22.1
+    build: ./nginx/
+    env_file: .env
     volumes:
-      - ./config/nginx/conf.d:/etc/nginx/conf.d
-      - static_taski:/staticfiles
+      - static:/staticfiles
     ports:
       - 8000:80
